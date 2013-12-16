@@ -190,7 +190,7 @@ pub extern fn flush_data(png_ptr: *ffi::png_struct) {
 
 #[fixed_stack_segment]
 pub fn store_png(img: &Image, path: &Path) -> Result<(),~str> {
-    let writer = match file::open(path, io::Create, io::Write) {
+    let writer = match file::open(path, io::CreateOrTruncate, io::Write) {
         Some(w) => @mut w as @mut io::Writer,
         None => return Err(~"could not open file")
     };
